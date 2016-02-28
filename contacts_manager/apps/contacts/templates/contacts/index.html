@@ -1,3 +1,6 @@
+{% extends 'contacts/base.html' %}
+
+{% block content %}
 {% if people %}
     <ul>
     {% for person in people %}
@@ -7,3 +10,4 @@
 {% else %}
     <p>No contacts available.</p>
 {% endif %}
+{% endblock %}
