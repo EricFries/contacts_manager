@@ -1,4 +1,4 @@
-<h1>{{ person.name }}</h1>
+<h1>{{ person.first_name }} {{ person.last_name }}</h1>
 <ul>
 	<li>{{ person.street_address_1 }}</li>
 	<li>{{ person.street_address_2 }}</li>
@@ -6,3 +6,5 @@
 	<li>{{ person.email_address }}</li>
 	<li>{{ person.phone_number }}</li>
 </ul>
+
+<a href="{% url 'contacts:delete' person.id %}">Delete Contact</a>

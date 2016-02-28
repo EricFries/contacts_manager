@@ -31,3 +31,9 @@ def create(request):
             'contacts:detail', args=(person.id,)))
 
     return render(request, 'contacts/create.html', {'form': form})
+
+
+def delete(request, person_id):
+    person = get_object_or_404(Person, pk=person_id)
+    person.delete()
+    return HttpResponseRedirect(reverse('contacts:index'))
