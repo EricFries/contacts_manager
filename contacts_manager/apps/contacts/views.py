@@ -27,8 +27,8 @@ def create(request):
         form = PersonForm(request.POST)
         if form.is_valid():
             person = form.save()
-        return HttpResponseRedirect(reverse(
-            'contacts:detail', args=(person.id,)))
+            return HttpResponseRedirect(reverse(
+                'contacts:detail', args=(person.id,)))
 
     return render(request, 'contacts/create.html', {'form': form})
 
