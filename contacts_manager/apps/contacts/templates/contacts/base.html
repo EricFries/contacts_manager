@@ -3,11 +3,23 @@
 <html>
     <head>
         <title>Contacts Manager</title>
-        <script src="{% static 'contacts/js/vendor/underscore-min.js' %}"></script>
-        <script src="{% static 'contacts/js/vendor/backbone-min.js' %}"></script>
+        <link href="{% static 'contacts/css/vendor/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'contacts/css/app.css' %}" rel="stylesheet">
     </head>
     <body>
-    {% block content %}
+        <nav>
+            <ul class="nav nav-tabs">
+<!--             Add JS to add .active class to current li -->
+              <li role="presentation"><a href="{% url 'contacts:index' %}">Home</a></li>
+              <li role="presentation"><a href="{% url 'contacts:create' %}">Create Contact</a></li>
+            </ul>
+        </nav>
+        {% block content %}
     {% endblock %}
+        <script src="{% static 'contacts/js/vendor/jquery-1.12.1.min.js' %}"></script>
+        <script src="{% static 'contacts/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'contacts/js/vendor/underscore-min.js' %}"></script>
+        <script src="{% static 'contacts/js/vendor/backbone-min.js' %}"></script>
+
     </body>
 </html>

@@ -2,11 +2,19 @@
 
 {% block content %}
 {% if people %}
-    <ul>
+    <table class="table">
+    <tr><th>Name</th><th>Organization</th><th>Email</th><th>Phone Number</th></tr>
     {% for person in people %}
-        <li><a href="{% url 'contacts:detail' person.id %}">{{ person.first_name }} {{ person.last_name }}</a></li>
+        <tr>
+            <td>
+                <a href="{% url 'contacts:detail' person.id %}">{{ person.first_name }} {{ person.last_name }}</a>
+            </td>
+            <td>{{ person.organization.name }}</td>
+            <td>{{ person.email_address }}</td>
+            <td>{{ person.phone_number }}</td>
+        </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No contacts available.</p>
 {% endif %}
