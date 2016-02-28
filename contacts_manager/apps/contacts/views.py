@@ -37,3 +37,19 @@ def delete(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     person.delete()
     return HttpResponseRedirect(reverse('contacts:index'))
+
+
+def edit(request, person_id):
+    person = get_object_or_404(Person, pk=person_id)
+    if request.method == 'POST':
+        form = PersonForm(request.POST, instance=person)
+        if form.is_valid():
+            person = form.save()
+            return HttpResponseRedirect(reverse(
+                'contacts:detail', args=(person.id,)))
+    else:
+        form = PersonForm(instance=person)
+    return render(request, 'contacts/edit.html', {
+        'form': form,
+        'person_id': person.id
+        })
