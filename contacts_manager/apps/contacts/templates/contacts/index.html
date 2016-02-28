@@ -1,0 +1,9 @@
+{% if people %}
+    <ul>
+    {% for person in people %}
+        <li><a href="{% url 'contacts:detail' person.id %}">{{ person.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No contacts available.</p>
+{% endif %}

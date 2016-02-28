@@ -6,17 +6,20 @@ from django.db import models
 class Organization(models.Model):
 	name = models.CharField(max_length=200)
 
-class Person(models.Model):
-	organization = models.ForeignKey(Organization)
-	name = models.CharField(max_length=200)
+	def __str__(self):
+		return self.name
 
-class ContactInfo(models.Model):
-	person = models.ForeignKey(Person)
-	phone_number = models.CharField(max_length=20)
-	email_address = models.CharField(max_length=100)
-	street_address_1 = models.CharField(max_length=100)
-	street_address_2 = models.CharField(max_length=100)
-	city = models.CharField(max_length=100)
-	state = models.CharField(max_length=100)
-	postal_code = models.CharField(max_length=100)
-	country = models.CharField(max_length=100)
+class Person(models.Model):
+	organization = models.ForeignKey(Organization, null=True, blank=True)
+	name = models.CharField(max_length=200)
+	phone_number = models.CharField(max_length=20, null=True, blank=True)
+	email_address = models.EmailField(max_length=100, null=True, blank=True)
+	street_address_1 = models.CharField(max_length=100, null=True, blank=True)
+	street_address_2 = models.CharField(max_length=100, null=True, blank=True)
+	city = models.CharField(max_length=100, null=True, blank=True)
+	state = models.CharField(max_length=100, null=True, blank=True)
+	postal_code = models.CharField(max_length=100, null=True, blank=True)
+	country = models.CharField(max_length=100, null=True, blank=True)
+
+	def __str__(self):
+		return self.name
