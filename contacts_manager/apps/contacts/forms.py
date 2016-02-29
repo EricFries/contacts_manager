@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Person
+from .models import Person, Organization
 
 
 class PersonForm(ModelForm):
@@ -18,3 +18,9 @@ class PersonForm(ModelForm):
             'phone_number',
             'organization',
         ]
+
+
+class OrganizationForm(ModelForm):
+    class Meta:
+        model = Organization
+        fields = ['name']

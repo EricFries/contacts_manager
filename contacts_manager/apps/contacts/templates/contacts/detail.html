@@ -4,7 +4,7 @@
 <h1>{{ person.first_name }} {{ person.last_name }}</h1>
 <ul>
     {% if person.organization.name %}
-    <li>{{ person.organization.name }}</li>
+    <li><a href="{% url 'contacts:detail_organization' person.organization.id %}">{{ person.organization.name }}</a></li>
     {% endif %}
 
     {% if person.street_address_1 %}
@@ -20,14 +20,14 @@
     {% endif %}
 
     {% if person.email_address %}
-	<li>{{ person.email_address }}</li>
+	<li><a href="mailto:{{ person.email_address }}">{{ person.email_address }}</a></li>
     {% endif %}
 
     {% if person.phone_number %}
-	<li>{{ person.phone_number }}</li>
+	<li><a href="tel:{{ person.phone_number }}">{{ person.phone_number }}</a></li>
     {% endif %}
 </ul>
 
-<button href="{% url 'contacts:edit' person.id %}">Edit Contact</button>
-<button href="{% url 'contacts:delete' person.id %}">Delete Contact</button>
+<a href="{% url 'contacts:edit' person.id %}" class="btn btn-primary" role="button">Edit Contact</a>
+<a href="{% url 'contacts:delete' person.id %}" class="btn btn-danger" role="button">Delete Contact</a>
 {% endblock %}

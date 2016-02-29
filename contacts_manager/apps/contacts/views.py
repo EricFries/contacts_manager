@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .forms import PersonForm
-from .models import Person
+from .forms import PersonForm, OrganizationForm
+from .models import Person, Organization
 
 
 # Create your views here.
@@ -53,3 +53,25 @@ def edit(request, person_id):
         'form': form,
         'person_id': person.id
         })
+
+
+def detail_organization(request, organization_id):
+    organization = get_object_or_404(Organization, pk=organization_id)
+    people = organization.person_set.all()
+    context = {
+        'organization': organization,
+        'people': people
+        }
+    return render(request, 'contacts/detail_organization.html', context)
+
+
+def new_organization(request):
+    form = OrganizationForm()
+    if request.method == 'POST':
+        form = OrganizationForm(request.POST)
+        if form.is_valid():
+            organization = form.save()
+            return HttpResponseRedirect(reverse(
+                'contacts:detail_organization', args=(organization.id,)))
+
+    return render(request, 'contacts/new_organization.html', {'form': form})
