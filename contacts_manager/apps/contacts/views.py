@@ -1,12 +1,14 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 from .forms import PersonForm, OrganizationForm
 from .models import Person, Organization
 
 
 # Create your views here.
+@login_required()
 def index(request):
     if request.method == 'GET':
         people = Person.objects.all()
@@ -14,12 +16,14 @@ def index(request):
         return render(request, 'contacts/index.html', context)
 
 
+@login_required()
 def detail(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     context = {'person': person}
     return render(request, 'contacts/detail.html', context)
 
 
+@login_required()
 def create(request):
     form = PersonForm()
 
@@ -33,12 +37,14 @@ def create(request):
     return render(request, 'contacts/create.html', {'form': form})
 
 
+@login_required()
 def delete(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     person.delete()
     return HttpResponseRedirect(reverse('contacts:index'))
 
 
+@login_required()
 def edit(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     if request.method == 'POST':
@@ -55,6 +61,7 @@ def edit(request, person_id):
         })
 
 
+@login_required()
 def detail_organization(request, organization_id):
     organization = get_object_or_404(Organization, pk=organization_id)
     people = organization.person_set.all()
@@ -65,6 +72,7 @@ def detail_organization(request, organization_id):
     return render(request, 'contacts/detail_organization.html', context)
 
 
+@login_required()
 def new_organization(request):
     form = OrganizationForm()
     if request.method == 'POST':

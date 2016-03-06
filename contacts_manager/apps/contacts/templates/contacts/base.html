@@ -7,11 +7,22 @@
         <link href="{% static 'contacts/css/app.css' %}" rel="stylesheet">
     </head>
     <body>
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}</p>
+    {% endif %}
         <nav>
             <ul class="nav nav-tabs">
 <!--             Add JS to add .active class to current li -->
               <li role="presentation"><a href="{% url 'contacts:index' %}">Home</a></li>
               <li role="presentation"><a href="{% url 'contacts:create' %}">Create Contact</a></li>
+
+              {% if not user.is_authenticated %}
+              <li role="presentation"><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+              {% endif %}
+
+              {% if user.is_authenticated %}
+              <li role="presentation"><a href="{% url 'django.contrib.auth.views.logout' %}?next=/login">Logout</a></li>
+              {% endif %}
             </ul>
         </nav>
         {% block content %}
